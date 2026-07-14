@@ -1,22 +1,16 @@
-import { useEffect, useState } from 'react'
-import { supabase } from './supabaseClient'
+import { useState } from 'react'
+import { useAuth } from './hooks/useAuth'
 import Auth from './components/Auth.jsx'
 import Dashboard from './components/Dashboard.jsx'
 
 export default function App() {
-  const [session, setSession] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const { session, loading, signOut } = useAuth()
+  const [showLogin, setShowLogin] = useState(false)
 
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      setSession(data.session)
-      setLoading(false)
-    })
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => {
-      setSession(s)
-    })
-    return () => sub.subscription.unsubscribe()
-  }, [])
+  const handleSignOut = () => {
+    setShowLogin(false)
+    signOut()
+  }
 
   if (loading) return <div className="center">Chargement…</div>
 
@@ -24,13 +18,20 @@ export default function App() {
     <div className="app">
       <header className="topbar">
         <h1>🌙 Leon Sleep</h1>
-        {session && (
-          <button className="link" onClick={() => supabase.auth.signOut()}>
+        {session ? (
+          <button className="link" onClick={handleSignOut}>
             Déconnexion ({session.user.email})
+          </button>
+        ) : (
+          <button className="link" onClick={() => setShowLogin((v) => !v)}>
+            {showLogin ? 'Fermer' : 'Se connecter'}
           </button>
         )}
       </header>
-      {session ? <Dashboard /> : <Auth />}
+
+      {!session && showLogin && <Auth onClose={() => setShowLogin(false)} />}
+
+      <Dashboard session={session} />
     </div>
   )
 }

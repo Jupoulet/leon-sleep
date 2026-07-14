@@ -11,12 +11,18 @@ l'approximation par des stats et des moyennes dans le temps.
 - Config via secrets Actions : `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`
 - Base path Vite = `/<repo>/` (sinon assets 404 sur GH Pages)
 
-## Auth
+## Auth & accès
 
-- Login Supabase email / mot de passe, 2 comptes (moi + ma femme)
-- **RLS partagée** : tout compte authentifié peut lire / écrire / modifier toutes les
-  lignes (pas d'isolement par utilisateur — on suit le même enfant)
-- `created_by` reste purement informatif
+- **Lecture publique** : le dashboard (courbes, encart, historique, notes) est visible
+  sans login. RLS = le rôle `anon` a une policy SELECT ouverte (`using (true)`).
+- **Écriture protégée** : insert / update / delete réservés au rôle `authenticated`.
+  Le formulaire de saisie ne s'affiche que connecté ; un visiteur voit un bouton
+  « Se connecter » discret dans la barre du haut.
+- Login Supabase email / mot de passe, 2 comptes (moi + ma femme), accès partagé
+  (pas d'isolement par utilisateur — on suit le même enfant).
+- `created_by` reste purement informatif.
+- `<meta name="robots" content="noindex, nofollow">` : accessible par URL mais non
+  indexé par les moteurs de recherche.
 
 ## Données — table `sleep_nights`
 

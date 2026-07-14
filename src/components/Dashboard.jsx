@@ -23,7 +23,7 @@ function today() {
   return new Date().toISOString().slice(0, 10)
 }
 
-export default function Dashboard() {
+export default function Dashboard({ session }) {
   const [nights, setNights] = useState([])
   const [loading, setLoading] = useState(true)
   const [preset, setPreset] = useState('month')
@@ -65,7 +65,7 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard">
-      <NightForm nights={nights} onSaved={load} />
+      {session && <NightForm nights={nights} onSaved={load} />}
 
       <LastNightCard last={lastNight} averages={averages} />
 
