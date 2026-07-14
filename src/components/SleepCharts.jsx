@@ -35,8 +35,8 @@ function densify(rows) {
 function Chart({ data, dataKey, avg, color, yLabel, fmt }) {
   const timeAxis = fmt === 'time'
   return (
-    <div className="rounded-xl border border-line bg-white/60 p-3">
-      <h3 className="mb-1.5 text-sm font-semibold">{yLabel}</h3>
+    <div className="rounded-2xl border border-white/70 bg-white/60 p-4">
+      <h3 className="mb-1.5 text-sm font-semibold text-muted">{yLabel}</h3>
       <ResponsiveContainer width="100%" height={220}>
         <LineChart data={data} margin={{ top: 8, right: 16, left: 8, bottom: 8 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
@@ -44,8 +44,14 @@ function Chart({ data, dataKey, avg, color, yLabel, fmt }) {
           <YAxis
             tick={{ fontSize: 11 }}
             domain={timeAxis ? [0, 1440] : ['auto', 'auto']}
-            tickFormatter={timeAxis ? minutesToLabel : undefined}
-            width={44}
+            tickFormatter={
+              fmt === 'time'
+                ? minutesToLabel
+                : fmt === 'duration'
+                  ? durationLabel
+                  : undefined
+            }
+            width={fmt === 'duration' ? 52 : 44}
           />
           <Tooltip
             formatter={(v) =>
@@ -92,7 +98,7 @@ export default function SleepCharts({ rows, averages }) {
         data={data}
         dataKey="durationMin"
         avg={averages.durationMin}
-        color="#6c5ce7"
+        color="#7c5cf0"
         yLabel="Durée de sommeil"
         fmt="duration"
       />
@@ -100,7 +106,7 @@ export default function SleepCharts({ rows, averages }) {
         data={data}
         dataKey="night_wakings"
         avg={averages.wakings}
-        color="#e17055"
+        color="#ea6f2c"
         yLabel="Nombre de réveils"
         fmt="int"
       />
@@ -108,7 +114,7 @@ export default function SleepCharts({ rows, averages }) {
         data={data}
         dataKey="wakeMin"
         avg={averages.wakeMin}
-        color="#00b894"
+        color="#2f86eb"
         yLabel="Heure de réveil"
         fmt="time"
       />
@@ -116,7 +122,7 @@ export default function SleepCharts({ rows, averages }) {
         data={data}
         dataKey="bedMin"
         avg={averages.bedMin}
-        color="#0984e3"
+        color="#0f9d6b"
         yLabel="Heure de coucher"
         fmt="time"
       />

@@ -75,10 +75,10 @@ export default function Dashboard({ session }) {
           {PRESETS.map((p) => (
             <button
               key={p.key}
-              className={`cursor-pointer rounded-lg px-3.5 py-1.5 text-sm font-medium transition ${
+              className={`cursor-pointer rounded-full px-4 py-1.5 text-sm font-medium transition ${
                 preset === p.key
-                  ? 'bg-accent text-white'
-                  : 'bg-slate-100 text-ink hover:bg-slate-200'
+                  ? 'bg-accent text-white shadow-[0_6px_16px_-6px_rgba(139,110,240,0.6)]'
+                  : 'bg-lavender/50 text-lavender-ink hover:bg-lavender'
               }`}
               onClick={() => setPreset(p.key)}
             >

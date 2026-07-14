@@ -2,13 +2,23 @@
 
 /* Thème custom -> génère bg-accent, text-muted, border-line, etc. */
 @theme {
-  --color-ink: #1e2233;
-  --color-muted: #7a819a;
-  --color-accent: #6c5ce7;
-  --color-accent-dark: #5544d6;
-  --color-good: #00b894;
-  --color-bad: #e17055;
-  --color-line: #e7e9f2;
+  --color-ink: #3a3552;
+  --color-muted: #9b93b0;
+  --color-accent: #a78bfa;
+  --color-accent-dark: #8b6ef0;
+  --color-good: #34d399;
+  --color-bad: #fb7185;
+  --color-line: #eee7f7;
+
+  /* Trio pastel */
+  --color-mint: #d5f5e3;
+  --color-mint-ink: #0f9d6b;
+  --color-peach: #ffe1cc;
+  --color-peach-ink: #ea6f2c;
+  --color-lavender: #e7e0ff;
+  --color-lavender-ink: #7c5cf0;
+  --color-sky: #d9ecff;
+  --color-sky-ink: #2f86eb;
 
   --animate-fade: fade 0.15s ease;
   --animate-pop: pop 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -31,27 +41,35 @@ body {
   margin: 0;
   font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
   color: var(--color-ink);
-  background: radial-gradient(1200px 600px at 50% -10%, #eef0fb 0%, #f6f7fb 55%);
+  background:
+    radial-gradient(900px 500px at 12% -5%, #fff2e6 0%, transparent 55%),
+    radial-gradient(900px 500px at 88% 0%, #efe6ff 0%, transparent 55%),
+    linear-gradient(180deg, #fffaf4 0%, #fdf7ff 100%);
+  background-attachment: fixed;
   min-height: 100vh;
 }
 
 /* Classes composant réutilisées (le reste = utilitaires inline dans le JSX) */
 @layer components {
   .card {
-    @apply rounded-2xl border border-line bg-white/90 p-5 shadow-sm backdrop-blur mb-4;
+    @apply rounded-3xl border border-white/70 bg-white/80 p-6 backdrop-blur mb-5
+      shadow-[0_18px_50px_-24px_rgba(124,92,240,0.35)];
   }
   .field {
-    @apply flex flex-col gap-1 text-[13px] text-muted;
+    @apply flex flex-col gap-1 text-[13px] font-medium text-muted;
   }
   .input {
-    @apply rounded-lg border border-line bg-white px-3 py-2 text-sm text-ink
-      outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20;
+    @apply rounded-xl border border-line bg-white/90 px-3 py-2 text-sm text-ink
+      outline-none transition focus:border-accent focus:ring-4 focus:ring-accent/15;
   }
   .btn {
-    @apply cursor-pointer rounded-lg bg-accent px-4 py-2.5 text-sm font-semibold text-white
-      transition hover:bg-accent-dark active:scale-[0.98] disabled:opacity-50;
+    @apply cursor-pointer rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-white
+      shadow-[0_8px_20px_-6px_rgba(139,110,240,0.6)]
+      transition hover:bg-accent-dark hover:-translate-y-0.5 active:translate-y-0
+      active:scale-[0.98] disabled:opacity-50;
   }
   .btn-ghost {
-    @apply cursor-pointer rounded-lg px-3 py-1.5 text-sm text-muted transition hover:text-ink;
+    @apply cursor-pointer rounded-full bg-white/70 px-4 py-1.5 text-sm font-medium text-muted
+      shadow-sm transition hover:text-ink;
   }
 }
