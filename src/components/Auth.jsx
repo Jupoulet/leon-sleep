@@ -25,19 +25,28 @@ export default function Auth({ onClose }) {
   }
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-ink/45 p-4 backdrop-blur-sm animate-fade"
+      onClick={onClose}
+    >
       <form
-        className="card auth modal"
+        className="card relative mb-0 flex w-full max-w-sm flex-col gap-3 shadow-2xl animate-pop"
         onClick={(e) => e.stopPropagation()}
         onSubmit={onSubmit}
       >
-        <button type="button" className="modal-close" onClick={onClose} aria-label="Fermer">
+        <button
+          type="button"
+          className="absolute right-3 top-2.5 text-2xl leading-none text-muted transition hover:text-ink"
+          onClick={onClose}
+          aria-label="Fermer"
+        >
           ×
         </button>
-        <h2>Connexion</h2>
-        <label>
+        <h2 className="text-lg font-semibold">Connexion</h2>
+        <label className="field">
           Email
           <input
+            className="input"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -45,17 +54,18 @@ export default function Auth({ onClose }) {
             required
           />
         </label>
-        <label>
+        <label className="field">
           Mot de passe
           <input
+            className="input"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </label>
-        {error && <p className="error">{error}</p>}
-        <button type="submit" disabled={busy}>
+        {error && <p className="text-[13px] text-bad">{error}</p>}
+        <button className="btn" type="submit" disabled={busy}>
           {busy ? '…' : 'Se connecter'}
         </button>
       </form>

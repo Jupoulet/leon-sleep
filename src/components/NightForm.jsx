@@ -61,28 +61,44 @@ export default function NightForm({ nights, onSaved }) {
 
   return (
     <form className="card" onSubmit={onSubmit}>
-      <h2>{exists ? 'Modifier une nuit' : 'Saisir une nuit'}</h2>
-      <div className="grid">
-        <label>
+      <h2 className="mb-4 text-lg font-semibold">
+        {exists ? 'Modifier une nuit' : 'Saisir une nuit'}
+      </h2>
+      <div className="mb-3 grid grid-cols-[repeat(auto-fit,minmax(140px,1fr))] gap-3">
+        <label className="field">
           Date de la nuit
           <input
+            className="input"
             type="date"
             value={nightDate}
             onChange={(e) => setNightDate(e.target.value)}
             required
           />
         </label>
-        <label>
+        <label className="field">
           Heure de coucher
-          <input type="time" value={form.bedtime} onChange={set('bedtime')} required />
+          <input
+            className="input"
+            type="time"
+            value={form.bedtime}
+            onChange={set('bedtime')}
+            required
+          />
         </label>
-        <label>
+        <label className="field">
           Heure de réveil
-          <input type="time" value={form.wake_time} onChange={set('wake_time')} required />
+          <input
+            className="input"
+            type="time"
+            value={form.wake_time}
+            onChange={set('wake_time')}
+            required
+          />
         </label>
-        <label>
+        <label className="field">
           Nombre de réveils
           <input
+            className="input"
             type="number"
             min="0"
             value={form.night_wakings}
@@ -91,17 +107,22 @@ export default function NightForm({ nights, onSaved }) {
           />
         </label>
       </div>
-      <label>
+      <label className="field mb-3">
         Note (optionnel)
         <input
+          className="input"
           type="text"
           placeholder="dents, malade, sieste zappée…"
           value={form.note}
           onChange={set('note')}
         />
       </label>
-      {msg && <p className={msg.type === 'error' ? 'error' : 'ok'}>{msg.text}</p>}
-      <button type="submit" disabled={busy}>
+      {msg && (
+        <p className={`mb-2 text-[13px] ${msg.type === 'error' ? 'text-bad' : 'text-good'}`}>
+          {msg.text}
+        </p>
+      )}
+      <button className="btn" type="submit" disabled={busy}>
         {busy ? '…' : exists ? 'Mettre à jour' : 'Enregistrer'}
       </button>
     </form>

@@ -35,8 +35,8 @@ function densify(rows) {
 function Chart({ data, dataKey, avg, color, yLabel, fmt }) {
   const timeAxis = fmt === 'time'
   return (
-    <div className="chart">
-      <h3>{yLabel}</h3>
+    <div className="rounded-xl border border-line bg-white/60 p-3">
+      <h3 className="mb-1.5 text-sm font-semibold">{yLabel}</h3>
       <ResponsiveContainer width="100%" height={220}>
         <LineChart data={data} margin={{ top: 8, right: 16, left: 8, bottom: 8 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
@@ -83,10 +83,11 @@ function Chart({ data, dataKey, avg, color, yLabel, fmt }) {
 
 export default function SleepCharts({ rows, averages }) {
   const data = densify(rows)
-  if (!rows.length) return <p className="empty">Aucune donnée sur cette période.</p>
+  if (!rows.length)
+    return <p className="py-8 text-center text-muted">Aucune donnée sur cette période.</p>
 
   return (
-    <div className="charts">
+    <div className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-5">
       <Chart
         data={data}
         dataKey="durationMin"

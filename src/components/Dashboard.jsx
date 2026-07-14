@@ -61,34 +61,41 @@ export default function Dashboard({ session }) {
     return buildSeries(filterNights(nights, from, to))
   }, [nights, preset, custom])
 
-  if (loading) return <div className="center">Chargement des nuits…</div>
+  if (loading)
+    return <div className="p-16 text-center text-muted">Chargement des nuits…</div>
 
   return (
-    <div className="dashboard">
+    <div>
       {session && <NightForm nights={nights} onSaved={load} />}
 
       <LastNightCard last={lastNight} averages={averages} />
 
       <div className="card">
-        <div className="filters">
+        <div className="mb-3 flex flex-wrap items-center gap-2">
           {PRESETS.map((p) => (
             <button
               key={p.key}
-              className={preset === p.key ? 'chip active' : 'chip'}
+              className={`cursor-pointer rounded-lg px-3.5 py-1.5 text-sm font-medium transition ${
+                preset === p.key
+                  ? 'bg-accent text-white'
+                  : 'bg-slate-100 text-ink hover:bg-slate-200'
+              }`}
               onClick={() => setPreset(p.key)}
             >
               {p.label}
             </button>
           ))}
           {preset === 'custom' && (
-            <span className="range">
+            <span className="inline-flex items-center gap-1.5 text-muted">
               <input
+                className="input py-1.5"
                 type="date"
                 value={custom.from}
                 onChange={(e) => setCustom((c) => ({ ...c, from: e.target.value }))}
               />
               →
               <input
+                className="input py-1.5"
                 type="date"
                 value={custom.to}
                 onChange={(e) => setCustom((c) => ({ ...c, to: e.target.value }))}
@@ -97,19 +104,24 @@ export default function Dashboard({ session }) {
           )}
         </div>
 
-        <div className="averages">
+        <div className="mb-4 flex flex-wrap gap-4 text-[13px] text-muted">
           <span>
-            Réveil moyen : <b>{minutesToLabel(averages.wakeMin)}</b>
+            Réveil moyen : <b className="text-ink">{minutesToLabel(averages.wakeMin)}</b>
           </span>
           <span>
-            Coucher moyen : <b>{minutesToLabel(averages.bedMin)}</b>
+            Coucher moyen : <b className="text-ink">{minutesToLabel(averages.bedMin)}</b>
           </span>
           <span>
             Réveils/nuit :{' '}
-            <b>{averages.wakings != null ? averages.wakings.toFixed(1) : '—'}</b>
+            <b className="text-ink">
+              {averages.wakings != null ? averages.wakings.toFixed(1) : '—'}
+            </b>
           </span>
           <span>
-            Dodo moyen : <b>{durationLabel(averages.durationMin != null ? Math.round(averages.durationMin) : null)}</b>
+            Dodo moyen :{' '}
+            <b className="text-ink">
+              {durationLabel(averages.durationMin != null ? Math.round(averages.durationMin) : null)}
+            </b>
           </span>
         </div>
 

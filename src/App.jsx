@@ -12,18 +12,21 @@ export default function App() {
     signOut()
   }
 
-  if (loading) return <div className="center">Chargement…</div>
+  if (loading)
+    return <div className="p-16 text-center text-muted">Chargement…</div>
 
   return (
-    <div className="app">
-      <header className="topbar">
-        <h1>🌙 Leon Sleep</h1>
+    <div className="mx-auto max-w-5xl p-4">
+      <header className="mb-4 flex items-center justify-between">
+        <h1 className="flex items-center gap-2 text-2xl font-bold tracking-tight">
+          <span>🌙</span> Leon Sleep
+        </h1>
         {session ? (
-          <button className="link" onClick={handleSignOut}>
+          <button className="btn-ghost" onClick={handleSignOut}>
             Déconnexion ({session.user.email})
           </button>
         ) : (
-          <button className="link" onClick={() => setShowLogin((v) => !v)}>
+          <button className="btn-ghost" onClick={() => setShowLogin((v) => !v)}>
             {showLogin ? 'Fermer' : 'Se connecter'}
           </button>
         )}
