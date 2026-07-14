@@ -1,0 +1,24 @@
+Contexte:
+Mon fils de 3 ans et demi dort peut ou mal. Il se réveille très tôt le matin et se reveille plusieurs fois pendant la nuit.
+Parfois, avec ma femme on a tendance à polémiquer sur la qualité du sommeil de notre fils. Elle a tendance à empirer la situation et j'ai tendance à la minimiser.
+
+Solution:
+Je veux créer un projet web. Un dashboard simple sur les nuits de mon fils. Ainsi, plus de place à l'approximation, car au fil du temps
+le projet nous donnera des stats et des moyennes sur la qualité de son sommeil au fil du temps.
+
+Specs:
+- Montrer une courbe des heures de reveil pour chaque jour
+- Montrer une courbe sur le nombre de fois où il se reveille pendant la nuit
+- Montrer une courbe sur l'heure de coucher
+- Avoir un encart spécial sur la dernière nuit (temps de dodo, nombre de reveil, heure de réveil)
+- Pouvoir filtrer et adapter les graphs en fonction des périodes:
+    - Last week
+    - Last month
+    - Last 3 months
+    - Custom range
+- Je dois pouvoir renseigner ces données chaque jour
+
+Choix techniques:
+- Le projet sera en JS
+- Les données devront être stockée sur une base de données (à trancher sur quelle type de base de données, Notion is my go to mais peut etre qu'il y a mieux). Je ne veux pas overengineer sur ce point
+- L'hébergement se fera simplement avec Github pages si possible ?
