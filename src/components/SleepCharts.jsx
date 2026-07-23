@@ -32,6 +32,15 @@ function densify(rows) {
   return out
 }
 
+// Domaine [min, max] ajusté aux données (avec marge), arrondi au quart d'heure.
+function fitDomain(data, dataKey, pad = 30) {
+  const vals = data.map((d) => d[dataKey]).filter((v) => v != null)
+  if (!vals.length) return ['auto', 'auto']
+  const min = Math.max(0, Math.floor((Math.min(...vals) - pad) / 15) * 15)
+  const max = Math.min(1440, Math.ceil((Math.max(...vals) + pad) / 15) * 15)
+  return [min, max]
+}
+
 function Chart({ data, dataKey, avg, color, yLabel, fmt }) {
   const timeAxis = fmt === 'time'
   return (
@@ -43,7 +52,7 @@ function Chart({ data, dataKey, avg, color, yLabel, fmt }) {
           <XAxis dataKey="night_date" tick={{ fontSize: 11 }} minTickGap={24} />
           <YAxis
             tick={{ fontSize: 11 }}
-            domain={timeAxis ? [0, 1440] : ['auto', 'auto']}
+            domain={timeAxis ? fitDomain(data, dataKey) : ['auto', 'auto']}
             tickFormatter={
               fmt === 'time'
                 ? minutesToLabel
